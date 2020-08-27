@@ -38,20 +38,26 @@ class Screen:
         return self.newScreen
 
     def drawGreenScreen(self, greenScreen):
-        newScreen = self.blankScreen.copy()
+        self.newScreen = self.blankScreen.copy()
+
+        """while (self.objHeap.count > 0):
+            obj = self.objHeap.removeMax()
+            self.drawTriangle(obj)"""
+
         for x in range(0, self.width):
             for y in range(0, self.height):
-                if (x < 1000 and y < 750):
-                    if (self.greenCondition(greenScreen[(x,y)])):
-                        newScreen[x, y] = greenScreen[(x,y)]
-                    else:
-                        while (self.objHeap.hasNext()):
-                            obj = self.objHeap.next()
-                            if (obj.isInTriangle(x, y)):
-                                newScreen[x, y] = obj.color
-                                break
-                        self.objHeap.resetIterator
-        return newScreen
+                if (x < 1000 and y < 750 and self.greenCondition(greenScreen[(x,y)])):
+                    self.newScreen[x, y] = greenScreen[(x,y)]
+                else:
+
+                    while (self.objHeap.hasNext()):
+                        obj = self.objHeap.next()
+                        if (obj.isInTriangle(x, y)):
+                            self.newScreen[x, y] = obj.color
+                            break
+                    self.objHeap.resetIterator()
+        self.objHeap.reset()
+        return self.newScreen
 
 
     def drawTriangle(self, obj):
@@ -144,8 +150,8 @@ class DrawnObject:
                     (y <= y1 and y >= y2)):
                     return True
             elif (x >= self.midX[0] and x <= self.maxX[0]):
-                y1 = a2*x + b2
-                y2 = a3*x + b3
+                y1 = self.a2*x + self.b2
+                y2 = self.a3*x + self.b3
 
                 if ((y >= y1 and y <= y2) or
                     (y <= y1 and y >= y2)):
