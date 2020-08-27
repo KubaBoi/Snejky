@@ -106,8 +106,6 @@ while running:
     print("  " + str((times/60)/60) + " hod")
     print("-----------------------------------------")
 
-    #clock.tick(60)
-
 pygame.quit()
 
 print("Time: " + str(time.time() - tim) + " s")
